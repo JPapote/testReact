@@ -11,14 +11,8 @@ const UseState = (props) => {
 
     const [state, dispatch] = useReducer(UseReducer, initialState);
 
-    const addProduct  = async() =>{
-        const product = {
-            nombre: "tornillo",
-            descripcion:"tornillo multi uso",
-            precio: "244",
-            categoria:"tornillo",
-            imagen: "tornillo.jpg"
-        }
+    const addProduct  = async( product) =>{
+       
         const response = await fetch(`https://test-lucas-594ea.firebaseio.com/products.json?auth=${sessionStorage.getItem('idToken')}`, {
             method:"POST",
              mode:"cors",
