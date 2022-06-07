@@ -1,14 +1,14 @@
 import { useContext } from "react"
-import UseContext from "../context/use/useContext" 
+import UseContext from "../context/use/useContext"
 
-const DeleteProduct = () =>{
+const DeleteProduct = () => {
     const { deleteProduct } = useContext(UseContext)
 
-    const deleteProd = () =>{
+    const deleteProd = () => {
         deleteProduct()
     }
-    return(
-        <button style={{margin:"10px", marginLeft:"50px"}} onClick={deleteProd} className="primary">Borrar Producto</button>
+    return (
+        <button style={{ margin: "10px", marginLeft: "50px" }} onClick={deleteProd} className="primary">Borrar Producto</button>
     )
 }
 

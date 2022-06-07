@@ -1,110 +1,110 @@
-import React,{ useEffect, useReducer} from "react";
+import React, { useEffect, useReducer } from "react";
 import UserContext from "./useContext";
 import UseReducer from "./useReducer";
 
 const UseState = (props) => {
-    
-    const initialState={
+
+    const initialState = {
         products: []
 
     }
 
     const [state, dispatch] = useReducer(UseReducer, initialState);
 
-    const addProduct  = async( product) =>{
-       
+    const addProduct = async (product) => {
+
         const response = await fetch(`https://test-lucas-594ea.firebaseio.com/products.json?auth=${sessionStorage.getItem('idToken')}`, {
-            method:"POST",
-             mode:"cors",
-            headers:{
-                'Access-Control-Allow-Origin':'*',
-                "Content-Type":"application/json",
-                'Accept' : 'application/json'
+            method: "POST",
+            mode: "cors",
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                "Content-Type": "application/json",
+                'Accept': 'application/json'
             },
             body: JSON.stringify(product)
-          
+
         })
         const res = await response.json();
         console.log(res)
     }
 
-    const deleteProduct  = async() =>{
+    const deleteProduct = async () => {
         const product = {
             nombre: "Campera",
-            descripcion:"Campera para el frio",
+            descripcion: "Campera para el frio",
             precio: "2344",
-            categoria:"Camperas",
+            categoria: "Camperas",
             imagen: "campera.jpg"
         }
         const response = await fetch(`https://test-lucas-594ea.firebaseio.com/products.json?auth=${sessionStorage.getItem('idToken')}`, {
-            method:"DELETE",
-             mode:"cors",
-            headers:{
-                'Access-Control-Allow-Origin':'*',
-                "Content-Type":"application/json",
-                'Accept' : 'application/json'
+            method: "DELETE",
+            mode: "cors",
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                "Content-Type": "application/json",
+                'Accept': 'application/json'
             },
             body: JSON.stringify(product)
-          
+
         })
         const res = await response.json();
         console.log(res)
     }
-   
-   
-    const getProducts = async () =>{
-       
+
+
+    const getProducts = async () => {
+
         const response = await fetch(`https://test-lucas-594ea.firebaseio.com/products.json?auth=${sessionStorage.getItem('idToken')}`, {
-            mode:"cors",
-            headers:{
-                'Access-Control-Allow-Origin':'*',
-                "Content-Type":"application/json",
-                'Accept' : 'application/json'
+            mode: "cors",
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                "Content-Type": "application/json",
+                'Accept': 'application/json'
             },
-          
+
         })
         const res = await response.json();
-   
-        dispatch({
-           type:"GET_PRODUCT",
-           payload: res
-       }) 
 
-      
+        dispatch({
+            type: "GET_PRODUCT",
+            payload: res
+        })
+
+
     }
 
 
-   const auth = async() => {
-       const user = {
-        email: "test@test.com",
-        password: "prueba" ,
-        returnSecureToken:true
-       }
-        const response = await fetch("https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAGQtn7z7nfZVPKzx6Mf_Mkgyw2wo-Lhr8",{
-            method:"POST",
-            headers: {'Content-Type':'application/json'},
+    const auth = async () => {
+        const user = {
+            email: "test@test.com",
+            password: "prueba",
+            returnSecureToken: true
+        }
+        const response = await fetch("https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAGQtn7z7nfZVPKzx6Mf_Mkgyw2wo-Lhr8", {
+            method: "POST",
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(user)
-                    
-        
-        } )
-         .then((response) =>response.json())
-         .then(rs => sessionStorage.setItem("idToken", rs.idToken) )
-        
+
+
+        })
+            .then((response) => response.json())
+            .then(rs => sessionStorage.setItem("idToken", rs.idToken))
+
     }
     useEffect(() => {
         auth()
-        
+
         getProducts()
-        
-     }, [])
- 
-    return(
+
+    }, [])
+
+    return (
         <UserContext.Provider value={{
             products: state,
             addProduct,
             getProducts,
-           // deleteProduct
-       }}>
+            // deleteProduct
+        }}>
             {props.children}
         </UserContext.Provider>
     )

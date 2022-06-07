@@ -48,7 +48,7 @@ const ComponentProducts = () => {
     return (
 
         <div className='p-5'>
-            <div 
+            <div
                 className="form-outline p-2">
                 <input type="search" id="form1" onChange={dataFilter} placeholder="Buscar Producto Por Categoria" className="form-control me-2" />
 
@@ -82,10 +82,10 @@ const ComponentProducts = () => {
                 </tbody>
             </Table>
 
-            <button style={{margin:"10px", marginLeft:"50px"}} >
-            <Link to="/addProduct" style={{textDecoration: "none"}} >GuardarProduct</Link></button>
+            <button style={{ margin: "10px", marginLeft: "50px" }} >
+                <Link to="/addProduct" style={{ textDecoration: "none" }} >GuardarProduct</Link></button>
 
-            
+
         </div>
 
 

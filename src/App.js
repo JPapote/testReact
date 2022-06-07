@@ -10,17 +10,17 @@ function App() {
   return (
 
     <BrowserRouter >
-        
-        <UseState>
+
+      <UseState>
         <Routes>
-        <Route path="/" element={<Products />} />
-          
+          <Route path="/" element={<Products />} />
+
           <Route path="addProduct" element={<AddProduct />} />
-          </Routes>
-          </UseState>
-         
-        </BrowserRouter>
-        );
+        </Routes>
+      </UseState>
+
+    </BrowserRouter>
+  );
 }
 
-        export default App;
+export default App;
